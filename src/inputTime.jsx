@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { getDateLS } from "./date_utils"
 
 export default class inputTime extends React.Component {
   static propTypes = {
@@ -31,7 +32,7 @@ export default class inputTime extends React.Component {
 
   onTimeChange = (time) => {
     this.setState({ time });
-    const date = new Date();
+    const date = getDateLS();
     date.setHours(time.split(":")[0]);
     date.setMinutes(time.split(":")[1]);
     this.props.onChange(date);

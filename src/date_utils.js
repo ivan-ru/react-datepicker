@@ -64,12 +64,18 @@ var longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
 
 // ** Date Constructors **
 
+export function getDateLS() {
+  if (localStorage.getItem("date_now")) {
+    return new Date(localStorage.getItem("date_now"));
+  }
+  return getDateLS();
+}
 export function newDate(value) {
   const d = value
     ? typeof value === "string" || value instanceof String
       ? parseISO(value)
       : toDate(value)
-    : new Date();
+    : getDateLS();
   return isValid(d) ? d : null;
 }
 
@@ -80,7 +86,7 @@ export function parseDate(value, dateFormat, locale, strictParsing, minDate) {
   let strictParsingValueMatch = true;
   if (Array.isArray(dateFormat)) {
     dateFormat.forEach((df) => {
-      let tryParseDate = parse(value, df, new Date(), { locale: localeObject });
+      let tryParseDate = parse(value, df, getDateLS(), { locale: localeObject });
       if (strictParsing) {
         strictParsingValueMatch =
           isValid(tryParseDate, minDate) &&
@@ -93,7 +99,7 @@ export function parseDate(value, dateFormat, locale, strictParsing, minDate) {
     return parsedDate;
   }
 
-  parsedDate = parse(value, dateFormat, new Date(), { locale: localeObject });
+  parsedDate = parse(value, dateFormat, getDateLS(), { locale: localeObject });
 
   if (strictParsing) {
     strictParsingValueMatch =
@@ -115,7 +121,7 @@ export function parseDate(value, dateFormat, locale, strictParsing, minDate) {
       .join("");
 
     if (value.length > 0) {
-      parsedDate = parse(value, dateFormat.slice(0, value.length), new Date());
+      parsedDate = parse(value, dateFormat.slice(0, value.length), getDateLS());
     }
 
     if (!isValid(parsedDate)) {
