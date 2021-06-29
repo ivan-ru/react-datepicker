@@ -1,6 +1,6 @@
 {
-  "author": "HackerOne",
-  "name": "react-datepicker",
+  "author": "HackerOne, small modification by ivan.ru",
+  "name": "tnindo-datepicker",
   "description": "A simple and reusable datepicker component for React",
   "version": "4.1.1",
   "license": "MIT",
