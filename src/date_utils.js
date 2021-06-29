@@ -68,7 +68,7 @@ export function getDateLS() {
   if (localStorage.getItem("date_now")) {
     return new Date(localStorage.getItem("date_now"));
   }
-  return getDateLS();
+  return new Date();
 }
 export function newDate(value) {
   const d = value
@@ -86,7 +86,9 @@ export function parseDate(value, dateFormat, locale, strictParsing, minDate) {
   let strictParsingValueMatch = true;
   if (Array.isArray(dateFormat)) {
     dateFormat.forEach((df) => {
-      let tryParseDate = parse(value, df, getDateLS(), { locale: localeObject });
+      let tryParseDate = parse(value, df, getDateLS(), {
+        locale: localeObject,
+      });
       if (strictParsing) {
         strictParsingValueMatch =
           isValid(tryParseDate, minDate) &&
